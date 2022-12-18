@@ -1,0 +1,46 @@
+kind: CronJob
+apiVersion: apps/v1
+metadata:
+  name: usage-reporting
+  namespace: digit-jobs
+  labels:
+    app: digit-plattform
+spec:
+  schedule: "00 03 * * *"
+  selector:
+    matchLabels:
+      app: usage-reporting
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: usage-reporting
+        spec:
+          restartPolicy: Never
+          imagePullSecrets:
+          - name: ghcr-pull-secret
+          containers:
+            - name: usage-reporting
+              image: ghcr.io/haninge-digit/digit-job-usage-reporting:main
+              imagePullPolicy: Always
+              env:
+                - name: DEBUG
+                  value: 'false'
+                - name: REPORT_RECIPIENT
+                  value: 'hakan.persson@haninge.se'
+                - name: AD_TENANT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: ms365mail-secret
+                      key: AD_TENANT_ID
+                - name: AD_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: ms365mail-secret
+                      key: AD_CLIENT_ID
+                - name: AD_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: ms365mail-secret
+                      key: AD_CLIENT_SECRET

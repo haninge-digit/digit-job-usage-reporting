@@ -1,0 +1,99 @@
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Process rapport</title>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      color: #000;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
+    }
+
+    header {
+      background-color: #FC6;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      background-color: #F90;
+    }
+
+    header h1,
+    header h2,
+    header h3 {
+      margin: 0;
+      padding: 10px;
+    }
+
+    main {
+      padding: 10px;
+    }
+
+    main h2,
+    main h3,
+    main h4 {
+      color: #BC1E21;
+      font-style: italic;
+    }
+
+    main h2 {
+      border-bottom: 3px double #BC1E21;
+    }
+
+    table {
+      border: 2px solid #555;
+      border-collapse: collapse;
+      font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif;
+    }
+
+    th,
+    td {
+      border: 1px solid #bbb;
+      padding: 2px 8px 0;
+      text-align: left;
+    }
+
+    thead>tr>th {
+      background-color: #cce;
+      font-size: 18px;
+      border-bottom: 2px solid #999;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>{{ header }}</h1>
+  </header>
+  <main>
+    {% if sums|count > 0 %}
+    <table>
+      <thead>
+        <tr>
+          <th>Processnamn</th>
+          <th>Antal starter</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for process, count in sums.items() %}
+        <tr>
+          <td>{{ process }}</td>
+          <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h2>Inget att rapportera!</h2>
+    {% endif %}
+  </main>
+  <footer></footer>
+</body>
+
+</html>
