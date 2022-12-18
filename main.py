@@ -120,7 +120,7 @@ def main():
         data = get_data(datelist)
         header = f"Camunda månadsrapport för {startday.strftime('%B %Y')}"
         html = mk_html(data, header, report_template)
-        # send_mail(header, html)
+        send_mail(header, html)
 
     if today.weekday() == 0:        # Today is Monday. Run a report on the previous week
         datelist = [(today+timedelta(days=d)).isoformat() for d in range(-7,0)]
@@ -136,13 +136,12 @@ def main():
     send_mail(header, html)
 
 
-
 """ 
 Starting point
 """
 if __name__ == "__main__":
-    # if DEBUG_MODE:       # Debug requested
-    #     logging.basicConfig(level=logging.DEBUG, format=LOGFORMAT)
-    # logging.basicConfig(level=logging.INFO, format=LOGFORMAT)     # Default logging level
+    if DEBUG_MODE:       # Debug requested
+        logging.basicConfig(level=logging.DEBUG, format=LOGFORMAT)
+    logging.basicConfig(level=logging.ERROR, format=LOGFORMAT)     # Default logging level
 
     main()
