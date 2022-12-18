@@ -25,7 +25,7 @@ spec:
                 - name: DEBUG
                   value: 'false'
                 - name: REPORT_RECIPIENT
-                  value: 'hakan.persson@haninge.se'
+                  value: 'digit@haninge.se'
                 - name: AD_TENANT_ID
                   valueFrom:
                     secretKeyRef:
