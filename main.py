@@ -111,8 +111,8 @@ def main():
     jinja_env = Environment(loader=FileSystemLoader("."))
     report_template = jinja_env.get_template("report.jinja2.html")
 
-    # today = date.today()
-    today = date(2022,12,19)
+    today = date.today()
+    # today = date(2022,12,19)
     # today = date(2023,1,1)
     if today.day == 1:      # First day of the month. Run a montly report on the previous mounth
         startday = date(today.year, today.month-1, 1) if today.month != 1 else date(today.year-1, 12, 1)
