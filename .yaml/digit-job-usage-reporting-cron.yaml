@@ -1,5 +1,5 @@
 kind: CronJob
-apiVersion: apps/v1
+apiVersion: batch/v1
 metadata:
   name: usage-reporting
   namespace: digit-jobs
@@ -7,9 +7,6 @@ metadata:
     app: digit-plattform
 spec:
   schedule: "00 03 * * *"
-  selector:
-    matchLabels:
-      app: usage-reporting
   jobTemplate:
     spec:
       template:
