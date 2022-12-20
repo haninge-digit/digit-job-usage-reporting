@@ -1,8 +1,9 @@
 # This one is for collecting data from elasticsearch. Version needs to match ES-version in Camunda.
 elasticsearch>=7.17,<8.0
 
-# This one is for creating HTML reports
+# These two is for creating HTML and Excel reports
 Jinja2>=3.1.2,<3.2.0
+openpyxl>=3.0.<=3.1
 
 # And these two are for sending mail with MS Graph
 msgraph-core>=0.2,<=0.3
