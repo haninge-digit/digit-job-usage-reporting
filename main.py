@@ -15,6 +15,8 @@ from openpyxl.styles import PatternFill, Font
 from openpyxl.utils.cell import get_column_letter
 from openpyxl.writer.excel import save_virtual_workbook
 
+from tempfile import NamedTemporaryFile
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
@@ -91,13 +93,13 @@ def mk_excel(data, sheet_title):
     ws = wb.active
     ws.title = sheet_title
 
-    columns = [("Datum",15)]
+    columns = [("Datum",12)]
     plist = []
     for p in data.values():
         for process in p.keys():
             if process not in plist:
                 plist.append(process)
-                columns.append((process,20))
+                columns.append((process,12))
 
     for col in range(len(columns)):
         ws.cell(row=1,column=col+1).value = columns[col][0]
@@ -112,7 +114,11 @@ def mk_excel(data, sheet_title):
             ws.cell(row=r,column=2+plist.index(process)).value = cnt
         r += 1
 
-    xlsx_data = save_virtual_workbook(wb)
+    with NamedTemporaryFile() as tmp:
+        wb.save(tmp.name)
+        tmp.seek(0)
+        xlsx_data = tmp.read()
+
     # with open("lista.xlsx","wb") as f:
     #     f.write(xlsx_data)
     # f.close()
@@ -163,7 +169,7 @@ def main():
 
     today = date.today()
     # today = date(2022,12,19)
-    # today = date(2023,1,1)
+    today = date(2023,1,1)
     if today.day == 1:      # First day of the month. Run a montly report on the previous mounth
         startday = date(today.year, today.month-1, 1) if today.month != 1 else date(today.year-1, 12, 1)
         datelist = [(startday+timedelta(days=d)).isoformat() for d in range(0,(today-startday).days)]
