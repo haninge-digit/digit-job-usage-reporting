@@ -169,7 +169,7 @@ def main():
 
     today = date.today()
     # today = date(2022,12,19)
-    today = date(2023,1,1)
+    # today = date(2023,1,1)
     if today.day == 1:      # First day of the month. Run a montly report on the previous mounth
         startday = date(today.year, today.month-1, 1) if today.month != 1 else date(today.year-1, 12, 1)
         datelist = [(startday+timedelta(days=d)).isoformat() for d in range(0,(today-startday).days)]
